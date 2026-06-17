@@ -1,0 +1,46 @@
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
+
+type ProgressSummaryProps = {
+  title?: string
+  description?: string
+  completed: number
+  total: number
+  label?: string
+}
+
+export function ProgressSummary({
+  title = "Progress summary",
+  description = "A quick look at current learning progress.",
+  completed,
+  total,
+  label = "Completed",
+}: ProgressSummaryProps) {
+  const safeTotal = Math.max(total, 0)
+  const safeCompleted = Math.min(Math.max(completed, 0), safeTotal)
+  const percentage =
+    safeTotal === 0 ? 0 : Math.round((safeCompleted / safeTotal) * 100)
+
+  return (
+    <Card>
+      <CardHeader className="space-y-2">
+        <div className="flex items-center justify-between gap-2">
+          <CardTitle className="text-base">{title}</CardTitle>
+          <Badge variant="secondary">{percentage}%</Badge>
+        </div>
+        <p className="text-sm text-muted-foreground">{description}</p>
+      </CardHeader>
+
+      <CardContent className="space-y-3">
+        <Progress value={percentage} />
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <span>
+            {safeCompleted} of {safeTotal} {label.toLowerCase()}
+          </span>
+          <span>{percentage}% complete</span>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
