@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router"
 import { Button } from "@/components/ui/button"
+import { ProgressSummary } from "@/components/progress-summary"
 
 export const Route = createFileRoute("/")({ component: App })
 
@@ -13,6 +14,13 @@ function App() {
           <p>We&apos;ve already added the button component for you.</p>
           <Button className="mt-2">Button</Button>
         </div>
+        <ProgressSummary
+          title="Learning progress"
+          description="Track how much of the concept you’ve completed."
+          completed={3}
+          total={5}
+          label="Lessons completed"
+        />
       </div>
     </div>
   )
